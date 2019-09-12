@@ -23,7 +23,8 @@ module exmem #(parameter WIDTH = 8, RAM_ADDR_BITS = 8)
     input memwrite,
     input [RAM_ADDR_BITS-1:0] adr,
     input [WIDTH-1:0] writedata,
-    output reg [WIDTH-1:0] memdata
+    output reg [WIDTH-1:0] memdata,
+	 output IOEn
     );
 
    reg [WIDTH-1:0] mips_ram [(2**RAM_ADDR_BITS)-1:0];
@@ -49,5 +50,11 @@ module exmem #(parameter WIDTH = 8, RAM_ADDR_BITS = 8)
             mips_ram[adr] <= writedata;
          memdata <= mips_ram[adr];
       end
+		
+	always @(*)
+	begin
+		if(adr[7:6] == 2'b11)
+			IOEn <= 1'b1;
+	end
 						
 endmodule

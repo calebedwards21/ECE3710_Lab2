@@ -1,20 +1,19 @@
-module IO(clk, reset, IOEn, RamEn, memdata, switches, leds)
+module IO(clk, IOEn, memdata, leds);
 
-	input clk, reset, IOEn, RamEn;
-	input [3:0] swithes;
+	input clk, IOEn;
 	input [7:0] memdata;
 	
-	output [7:0] leds
+	output reg [7:0] leds;
 
-	always @(*)
+	always @(posedge clk)
 	begin
-		if(memdata[7:6] == 2'b11)
+		if(IOEn)
 		begin
-		
+			leds <= memdata;
 		end
 		else
 		begin
-		
+			leds <= 8'b00000000;
 		end
 	
 	end

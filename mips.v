@@ -15,7 +15,7 @@
 // simplified MIPS processor
 module mips #(parameter WIDTH = 8, REGBITS = 3)
              (input              clk, reset, 
-              input  [WIDTH-1:0] memdata, 
+              input  [WIDTH-1:0] memdata,
               output             memread, memwrite, 
               output [WIDTH-1:0] adr, writedata);
 
