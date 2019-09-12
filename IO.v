@@ -1,22 +1,23 @@
-module IO(clk, IOEn, memdata, leds);
+module IO(clk, adr, en, switches, memwrite, writedata, memdata, leds);
 
-	input clk, IOEn;
-	input [7:0] memdata;
+	input clk, en, memwrite;
+	input [7:0] writedata;
+	input [5:0] adr;
+	input [3:0] switches;
 	
 	output reg [7:0] leds;
-
+	output reg[7:0] memdata;
+	
 	always @(posedge clk)
 	begin
-		if(IOEn)
+		if(en)
 		begin
-			leds <= memdata;
+			leds <= writedata;
 		end
-		else
-		begin
-			leds <= 8'b00000000;
-		end
+		memdata <= {4'b0000,switches};
 	
 	end
 
 
 endmodule
+    
